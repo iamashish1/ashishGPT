@@ -54,9 +54,5 @@ class Adapter(
         }
     }
 
-    fun updateRooms(newRooms: List<ChatClass>) {
-        rooms.clear()
-        rooms.addAll(newRooms)
-        notifyDataSetChanged()
-    }
+
 }
