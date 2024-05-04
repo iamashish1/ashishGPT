@@ -28,44 +28,20 @@ class MainActivity : AppCompatActivity() {
         // Initialize ViewModel
        val chatViewModel = ViewModelProvider(this, chatModelFactory)[ChatViewModel::class.java]
 
+        chatViewModel.data.observe(this) { response ->
+
+            data.add(ChatClass(response?.get(0)?.generated_text, false))
+            rv.adapter?.notifyItemInserted(data.lastIndex)
+            rv.scrollToPosition(data.lastIndex)
+        }
+
         sendButton.setOnClickListener {
             val prompt = findViewById<EditText>(R.id.editTextText).text.toString()
+            data.add(ChatClass(prompt,true))
+            findViewById<EditText>(R.id.editTextText).text.clear()
+            rv.adapter?.notifyItemInserted(data.lastIndex)
             chatViewModel.loadData("Bearer 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",GptRequest(prompt))
 
-
-//
-//            data.add(ChatClass(prompt,true))
-//            rv.adapter?.notifyItemInserted(data.lastIndex)
-//            findViewById<EditText>(R.id.editTextText).text.clear()
-//            lifecycleScope.launch {
-//                try {
-//                    val retrofit = Retrofit.Builder()
-//                        .baseUrl("https://api-inference.huggingface.co/")
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build()
-//                    val service: ApiService = retrofit.create(ApiService::class.java)
-//                    val response = service.getGptResponse(
-//                        authorization = "Bearer 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",
-//                        body = GptRequest(prompt)
-//                    )
-//                    if (response.isSuccessful) {
-//
-//                        val gptResponse = response.body()
-//                        println(gptResponse)
-//
-//                        data.add(ChatClass(gptResponse?.get(0)?.generated_text.toString(),false))
-//                        rv.adapter?.notifyItemInserted(data.lastIndex)
-//                        rv.scrollToPosition(data.lastIndex)
-//
-//                    } else {
-//                        println(response.message())
-//                        // CHECK OTHER ERROR CODES AND HANDLE
-//                    }
-//                } catch (e: Exception) {
-//                    //HANDLE OTHER ERRORS SUCH AS NETWORK ERROR
-//                    e.printStackTrace()
-//                }
-//            }
         }
 
 
