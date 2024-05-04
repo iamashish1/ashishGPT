@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ashishgpt.database.ChatDatabase
+import com.example.ashishgpt.database.ApiServiceFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         rv.adapter = Adapter(data)
         val sendButton: ImageButton = findViewById(R.id.imageButton)
 
-        val chatModelFactory= ChatViewModelFactory( ChatRepository(ChatDatabase.getChatAPI()))
+        val chatModelFactory= ChatViewModelFactory( ChatRepository(ApiServiceFactory.createApiService()))
 
         // Initialize ViewModel
        val chatViewModel = ViewModelProvider(this, chatModelFactory)[ChatViewModel::class.java]
