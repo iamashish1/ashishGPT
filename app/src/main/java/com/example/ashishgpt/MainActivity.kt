@@ -8,6 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ashishgpt.database.ApiServiceFactory
+import com.example.ashishgpt.model.ChatClass
+import com.example.ashishgpt.model.GptRequest
+import com.example.ashishgpt.repository.ChatRepository
+import com.example.ashishgpt.view.Adapter
+import com.example.ashishgpt.viewmodel.ChatViewModel
+import com.example.ashishgpt.viewmodel.ChatViewModelFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         val sendButton: ImageButton = findViewById(R.id.imageButton)
 
         val chatModelFactory= ChatViewModelFactory( ChatRepository(ApiServiceFactory.createApiService()))
-
         // Initialize ViewModel
        val chatViewModel = ViewModelProvider(this, chatModelFactory)[ChatViewModel::class.java]
 
@@ -40,7 +45,9 @@ class MainActivity : AppCompatActivity() {
             data.add(ChatClass(prompt,true))
             findViewById<EditText>(R.id.editTextText).text.clear()
             rv.adapter?.notifyItemInserted(data.lastIndex)
-            chatViewModel.loadData("Bearer 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",GptRequest(prompt))
+            chatViewModel.loadData("Bearer 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",
+                GptRequest(prompt)
+            )
 
         }
 

@@ -1,4 +1,4 @@
-package com.example.ashishgpt
+package com.example.ashishgpt.model
 
 data class ChatClass (
     val question:String?,

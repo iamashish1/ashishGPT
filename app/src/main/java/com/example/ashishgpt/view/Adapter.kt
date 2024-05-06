@@ -1,10 +1,12 @@
-package com.example.ashishgpt
+package com.example.ashishgpt.view
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ashishgpt.model.ChatClass
+import com.example.ashishgpt.R
 
 class Adapter(
     private var rooms: MutableList<ChatClass>,

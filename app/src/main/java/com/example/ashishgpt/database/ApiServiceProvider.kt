@@ -1,6 +1,6 @@
 package com.example.ashishgpt.database
 
-import com.example.ashishgpt.ApiService
+import com.example.ashishgpt.apiservice.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
