@@ -1,17 +1,19 @@
 
 # AshishGpt
 
-The project is developed to work like all the GPTs we love and use.This one is called AshishGpt.
-# Android Concepts used:
+The project is developed to work like all the GPTs we love and use. This one is called AshishGpt.
 
-MVVM architecure
-Gson Converter
-ViewModel
-Retrofit
+## Android Concepts Used
 
-<img src="DemoImages/empty.png">
+- MVVM architecture
+- Gson Converter
+- ViewModel
+- Retrofit
 
-<img src="DemoImages/prompt.png">
+<div>
+<img src="DemoImages/empty.png" width="200" >
+<img src="DemoImages/prompt.png" width="200">
+</div>
 
 
 
