@@ -7,16 +7,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ashishgpt.database.ApiServiceFactory
 import com.example.ashishgpt.model.ChatClass
 import com.example.ashishgpt.model.GptRequest
-import com.example.ashishgpt.repository.ChatRepository
 import com.example.ashishgpt.view.Adapter
 import com.example.ashishgpt.viewmodel.ChatViewModel
-import com.example.ashishgpt.viewmodel.ChatViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    // viewModels() delegate used to get
+    // by view models will automatically construct the viewmodels using Hilt
+    private lateinit var chatViewModel: ChatViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,9 +32,10 @@ class MainActivity : AppCompatActivity() {
         rv.adapter = Adapter(data)
         val sendButton: ImageButton = findViewById(R.id.imageButton)
 
-        val chatModelFactory= ChatViewModelFactory( ChatRepository(ApiServiceFactory.createApiService()))
+//        val chatModelFactory= ChatViewModelFactory( ChatRepository(ApiServiceFactory.createApiService()))
         // Initialize ViewModel
-       val chatViewModel = ViewModelProvider(this, chatModelFactory)[ChatViewModel::class.java]
+//       val chatViewModel = ViewModelProvider(this, chatModelFactory)[ChatViewModel::class.java]
+        chatViewModel = ViewModelProvider(this)[ChatViewModel::class.java]
 
         chatViewModel.data.observe(this) { response ->
 

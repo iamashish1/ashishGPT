@@ -6,10 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.ashishgpt.model.GptRequest
 import com.example.ashishgpt.model.GptResponse
 import com.example.ashishgpt.repository.ChatRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class ChatViewModel(private val repository: ChatRepository
+@HiltViewModel
+class ChatViewModel  @Inject constructor (private val repository: ChatRepository
 ): ViewModel() {
 
 
@@ -24,6 +26,7 @@ class ChatViewModel(private val repository: ChatRepository
         viewModelScope.launch {
             _loading.value = true
             val chatResponse = repository.getGptResponse(authorization, body)
+            println(chatResponse?.get(0)?.generated_text)
             _data.value = chatResponse
             _loading.value = false
 
