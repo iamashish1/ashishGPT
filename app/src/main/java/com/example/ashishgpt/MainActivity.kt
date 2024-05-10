@@ -3,6 +3,8 @@ package com.example.ashishgpt
 import android.os.Bundle
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ashishgpt.databinding.ActivityMainBinding
@@ -15,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-//    var editTextValue = ObservableField<String>("")
+    var editTextValue = ObservableField<String>("")
 
     private lateinit var binding: ActivityMainBinding
     // viewModels() delegate used to get
@@ -24,11 +26,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+         binding = DataBindingUtil.setContentView(
+            this, R.layout.activity_main)
+
+//     //OR    binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        println(editTextValue.get().toString()+"AAAAAAAA")
-
+//        binding.lifecycleOwner=this
+        binding.activity= this
 
 
         val data= arrayListOf<ChatClass>()
@@ -58,14 +63,14 @@ class MainActivity : AppCompatActivity() {
 //                return@setOnClickListener
 //            }
 
-            val editTextValue= binding.editTextText.text.toString()
+//            val editTextValue= binding.editTextText.text.toString()
 
 //            val prompt = binding.editTextText.text.toString()
-            data.add(ChatClass( editTextValue,true))
+            data.add(ChatClass( editTextValue.get()?:"",true))
 
             rv.adapter?.notifyItemInserted(data.lastIndex)
             chatViewModel.loadData("Bearer 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",
-                GptRequest(editTextValue)
+                GptRequest(editTextValue.get()?:"")
             )
             binding.editTextText.setText("")
 

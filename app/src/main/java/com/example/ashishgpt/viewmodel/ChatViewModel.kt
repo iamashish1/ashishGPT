@@ -17,7 +17,7 @@ class ChatViewModel  @Inject constructor (private val repository: ChatRepository
 
     private val _data = MutableLiveData<GptResponse?>()
 
-    val data: MutableLiveData<GptResponse?> get() = _data
+    val data: LiveData<GptResponse?> get() = _data
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
