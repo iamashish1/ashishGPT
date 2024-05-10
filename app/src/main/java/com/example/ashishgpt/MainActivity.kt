@@ -6,7 +6,7 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.ashishgpt.databinding.ActivityMainBinding
 import com.example.ashishgpt.model.ChatClass
 import com.example.ashishgpt.model.GptRequest
 import com.example.ashishgpt.view.Adapter
@@ -16,21 +16,23 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     // viewModels() delegate used to get
     // by view models will automatically construct the viewmodels using Hilt
     private lateinit var chatViewModel: ChatViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val data= arrayListOf<ChatClass>()
 
-        val rv= findViewById<RecyclerView>(R.id.rv)
+        val rv= binding.rv
 
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = Adapter(data)
-        val sendButton: ImageButton = findViewById(R.id.imageButton)
+        val sendButton: ImageButton = binding.imageButton
 
 //        val chatModelFactory= ChatViewModelFactory( ChatRepository(ApiServiceFactory.createApiService()))
         // Initialize ViewModel

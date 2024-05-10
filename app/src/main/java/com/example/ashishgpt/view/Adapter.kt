@@ -1,12 +1,11 @@
 package com.example.ashishgpt.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ashishgpt.databinding.GptItemBinding
+import com.example.ashishgpt.databinding.UserItemBinding
 import com.example.ashishgpt.model.ChatClass
-import com.example.ashishgpt.R
 
 class Adapter(
     private var rooms: MutableList<ChatClass>,
@@ -20,23 +19,16 @@ class Adapter(
         }
     }
 
-    inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvTitle: TextView = itemView.findViewById(R.id.userDesc)
-        // Other views specific to UserViewHolder
-    }
+    inner class UserViewHolder(val binding: UserItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-    inner class GPTViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvTitle: TextView = itemView.findViewById(R.id.gptTitle)
-        // Other views specific to GPTViewHolder
-    }
-
+    inner class GPTViewHolder(val binding: GptItemBinding) : RecyclerView.ViewHolder(binding.root)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
-            UserViewHolder(view)
+           val binding= UserItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            UserViewHolder(binding)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.gpt_item, parent, false)
-            GPTViewHolder(view)
+            val binding = GptItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+            GPTViewHolder(binding)
         }
     }
 
@@ -46,15 +38,14 @@ class Adapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentRoom = rooms[position]
-
+        println(currentRoom.question)
+        println(currentRoom.isSender)
         if (holder is UserViewHolder) {
-            holder.tvTitle.text = currentRoom.question
-            // Set other views specific to UserViewHolder
-        } else if (holder is GPTViewHolder) {
-            holder.tvTitle.text = currentRoom.question
-            // Set other views specific to GPTViewHolder
+            holder.binding.texts = currentRoom
+
+        }else if (holder is GPTViewHolder) {
+            holder.binding.texts = currentRoom
         }
     }
-
 
 }
