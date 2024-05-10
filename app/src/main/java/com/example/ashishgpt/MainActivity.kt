@@ -1,9 +1,9 @@
 package com.example.ashishgpt
 
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ashishgpt.databinding.ActivityMainBinding
@@ -16,6 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    var editTextValue = ObservableField<String>("")
+
     private lateinit var binding: ActivityMainBinding
     // viewModels() delegate used to get
     // by view models will automatically construct the viewmodels using Hilt
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         val data= arrayListOf<ChatClass>()
 
@@ -47,13 +51,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         sendButton.setOnClickListener {
-            val prompt = findViewById<EditText>(R.id.editTextText).text.toString()
-            data.add(ChatClass(prompt,true))
-            findViewById<EditText>(R.id.editTextText).text.clear()
+
+            if(editTextValue.get()!!.isEmpty()){
+                println("WHY IS ITNULL")
+                return@setOnClickListener
+            }
+
+//            val prompt = binding.editTextText.text.toString()
+            data.add(ChatClass( editTextValue.get()?:"",true))
+
             rv.adapter?.notifyItemInserted(data.lastIndex)
             chatViewModel.loadData("Bearer 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",
-                GptRequest(prompt)
+                GptRequest(editTextValue.get()?:"")
             )
+            editTextValue.set("")
 
         }
 

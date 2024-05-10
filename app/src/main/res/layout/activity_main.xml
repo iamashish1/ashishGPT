@@ -5,6 +5,11 @@
 
     <data>
 
+
+        <variable
+            name="activity"
+            type="com.example.ashishgpt.MainActivity" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +42,9 @@
             android:ems="10"
             android:hint="Enter your prompt here"
             android:inputType="text"
-            android:paddingStart="10dp"
+            android:text="@={activity.editTextValue}"
+        android:paddingStart="10dp"
+
             android:textColor="#FBFBFB"
             android:textColorHint="#D1CACA"
             app:layout_constraintBottom_toBottomOf="parent"
