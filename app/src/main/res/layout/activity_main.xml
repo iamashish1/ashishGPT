@@ -6,9 +6,9 @@
     <data>
 
 
-        <variable
-            name="activity"
-            type="com.example.ashishgpt.MainActivity" />
+<!--        <variable-->
+<!--            name="activity"-->
+<!--            type="com.example.ashishgpt.MainActivity" />-->
 
     </data>
 
@@ -41,9 +41,10 @@
             android:background="#333333"
             android:ems="10"
             android:hint="Enter your prompt here"
+
             android:inputType="text"
-            android:text="@={activity.editTextValue}"
-        android:paddingStart="10dp"
+
+              android:paddingStart="10dp"
 
             android:textColor="#FBFBFB"
             android:textColorHint="#D1CACA"
