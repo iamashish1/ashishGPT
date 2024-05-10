@@ -10,6 +10,8 @@ The project is developed to work like all the GPTs we love and use. This one is 
 <h4>Gson Converter</h4>
 <h4>ViewModel</h4>
 <h4>Retrofit</h4>
+<h4>Data Binding</h4>
+<h4>View Binding</h4>
 <br/>
 
 <div>
